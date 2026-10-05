@@ -1,0 +1,190 @@
+/* stylelint-disable */
+@import 'leaflet/dist/leaflet.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --radius: 0.375rem;
+    /* Tactical Oceanographic Dark Theme (Default) */
+    --background: 220 44% 8%; /* #0B111E */
+    --foreground: 210 40% 96%; /* #F1F5F9 */
+    --card: 220 40% 11%; /* #0F172A */
+    --card-foreground: 210 40% 96%;
+    --popover: 220 40% 11%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 201 98% 39%; /* #0284C7 */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 199 89% 48%; /* #0EA5E9 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 217 33% 17%; /* #1E293B */
+    --muted-foreground: 215 20% 65%;
+    --accent: 160 84% 39%; /* #10B981 Phosphor radar green */
+    --accent-foreground: 222 47% 11%; /* #0F172A */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 25% 27%; /* #334155 Precision grid line */
+    --input: 215 25% 22%;
+    --ring: 201 98% 45%;
+    --chart-1: 201 98% 48%; /* Ocean Teal */
+    --chart-2: 160 84% 45%; /* Emerald Radar */
+    --chart-3: 38 92% 50%; /* Warning Amber */
+    --chart-4: 0 84% 60%; /* Danger Coral */
+    --chart-5: 280 65% 60%; /* Purple Satellite */
+    --sidebar-background: 220 44% 7%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 201 98% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 215 25% 27%;
+    --sidebar-ring: 201 98% 45%;
+  }
+
+  .dark {
+    --background: 220 44% 8%;
+    --foreground: 210 40% 96%;
+    --card: 220 40% 11%;
+    --card-foreground: 210 40% 96%;
+    --popover: 220 40% 11%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 201 98% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 25% 27%;
+    --input: 215 25% 22%;
+    --ring: 201 98% 45%;
+    --chart-1: 201 98% 48%;
+    --chart-2: 160 84% 45%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 0 84% 60%;
+    --chart-5: 280 65% 60%;
+    --sidebar-background: 220 44% 7%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 201 98% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 215 25% 27%;
+    --sidebar-ring: 201 98% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom Tactical Leaflet Controls and Map styling */
+.nautical-dark-filter {
+  filter: brightness(0.65) invert(1) contrast(2.8) hue-rotate(200deg) saturate(0.25);
+}
+
+.nautical-ocean-tiles {
+  filter: brightness(0.85) contrast(1.15) saturate(0.9);
+}
+
+.leaflet-container {
+  background: #080d1a !important;
+  font-family: inherit;
+}
+
+.leaflet-bar {
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-bar a {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: hsl(var(--muted)) !important;
+  color: hsl(var(--primary)) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+/* Radar pulse animation for SOS or hazards */
+@keyframes radar-ping {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.animate-radar-ping {
+  animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
