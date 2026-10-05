@@ -1,298 +1,207 @@
-# Sagar AI aka ORCA
+# SagarAI — ORCA Marine Intelligence
 
-## Marine Ecosystem Reasoning with Collaborative Agents
+## Agentic Oceanographic Command Terminal
 
-**Sagar AI aka ORCA** is a responsive marine-intelligence platform designed for the CodeCrafters **Smart India Hackathon 2026** submission. It combines satellite imagery, ocean-signal exploration, evidence-aware reasoning and agent-style orchestration into a single command centre for understanding marine conditions across India and the wider ocean.
+**SagarAI / ORCA** is a Smart India Hackathon 2026 prototype for marine decision support. It combines a tactical geospatial dashboard, multilingual marine advisories, simulated vessel and boundary monitoring, route optimization, safety alerts and an explainable multi-agent execution trace.
 
 **Live demo:** [sagarai-kappa.vercel.app](https://sagarai-kappa.vercel.app/)
 
-> **Sagar** means ocean in several Indian languages. **ORCA** represents the system's collaborative, intelligent and dependable marine co-pilot.
+> This repository is a prototype. The displayed marine observations, vessel positions and advisories should be treated as representative demo data unless a live provider connection is explicitly verified.
 
 ## What the prototype demonstrates
 
-- Interactive world map with NASA GIBS satellite imagery
-- Marine signal layers for SST, chlorophyll, wind, waves, currents, PFZ candidates and hazards
-- Region-based exploration across Indian and global ocean zones
-- Ranked signal cards and a detail inspector for selected observations
-- Question-specific marine copilot answers instead of one generic response
-- Evidence and provenance drawer showing signal source, timestamp, dataset and freshness
-- Deterministic demo corpus with hundreds of synthetic records for reliable presentations
-- Optional server-side OpenAI-compatible copilot integration
-- Optional adapters for INCOIS, MOSDAC, Bhuvan/NRSC and NOAA/NCEI services
-- Responsive interface for desktop, tablet and mobile screens
-- PWA-ready structure and Vercel-compatible Next.js deployment
+- Tactical oceanographic command-terminal interface
+- Interactive nautical basemap with Ocean, Dark, Satellite and Carto options
+- Multilingual query interface for English and Indian regional languages
+- Conversational marine advisory panel with optional audio playback
+- Eight-stage agent trace:
+  1. Orchestrator and Mission Planner
+  2. Marine Earth Observation Discovery
+  3. Weather and Cyclone Intelligence
+  4. Ocean Dynamics and Fisheries Analytics
+  5. Geospatial Reasoning and Geofencing
+  6. Maritime Risk Assessment and Safety
+  7. Route Optimization and Navigation
+  8. Explainable Synthesis and Regional Advisory
+- Potential Fishing Zone and marine-hazard visualizations
+- IMBL and protected-area proximity monitoring
+- Vessel safety warnings and safe-return vectors
+- Weather-aware route planning with waypoint and risk information
+- SOS distress workflow prototype
+- Exportable explainable advisory/report flow
 
-## Product vision
+## Primary demo scenario
 
-Sagar AI aka ORCA is intended to help fishers, coastal communities, marine researchers, disaster-response teams and public authorities make faster, more explainable decisions from complex ocean data.
+The recommended demonstration follows a single operational story:
 
-The long-term workflow is:
+1. A vessel is shown near the India–Sri Lanka International Maritime Boundary Line.
+2. The operator asks a fishing or safety question in a regional language.
+3. ORCA combines marine, weather, fisheries and boundary signals.
+4. The system identifies the risk and provides a safe-return heading.
+5. The agent trace shows how the final advisory was assembled.
 
-```text
-Satellite and ocean feeds
-        ↓
-Secure provider adapters
-        ↓
-Normalised marine observations
-        ↓
-Signal correlation and ranking
-        ↓
-Collaborative reasoning agents
-        ↓
-Evidence-backed marine guidance
-```
-
-The current prototype keeps the demo experience reliable and honest. Synthetic observations are clearly labelled as demo data; the application does not pretend that mock values are live satellite measurements.
+This keeps the demo focused on the outcome: **turning scattered marine signals into an actionable, explainable safety decision**.
 
 ## Technology stack
 
-| Layer | Technology |
+| Layer | Implementation |
 |---|---|
-| Frontend | React 19, Next.js 15 App Router, TypeScript |
-| Interaction | Client-side React state, Lucide icons, responsive CSS |
-| Mapping | Leaflet with NASA GIBS satellite imagery tiles |
-| Validation | Zod request validation, TypeScript checks, ESLint |
-| Backend | Next.js server routes with same-origin APIs |
-| Data model | Typed marine observations, evidence and agent-trace contracts |
-| AI | Optional server-side OpenAI-compatible copilot with deterministic fallback |
-| Deployment | Vercel-compatible Next.js deployment and Manus WebDev container contract |
-| Package manager | pnpm 11 |
+| Frontend | React 18, TypeScript, Vite |
+| Routing | React Router 7 |
+| Styling | Tailwind CSS, custom dark nautical design system |
+| UI components | Radix UI, custom components, Lucide React |
+| Mapping | Leaflet and marine basemap tiles |
+| Charts and visuals | Recharts, Leaflet overlays and custom telemetry UI |
+| Interaction | React state, Web Speech API, responsive layout |
+| Validation and tooling | TypeScript, Biome, Vitest, Playwright |
+| Deployment | Static Vite build suitable for Vercel |
 
 ## Project structure
 
 ```text
-app/
-├── api/
-│   ├── chat/              # Marine copilot endpoint
-│   ├── health/            # Unauthenticated deployment health check
-│   ├── noaa/datasets/     # Optional NOAA/NCEI adapter health route
-│   └── ocean-data/        # Ocean-data aggregation endpoint
-├── components/
-│   └── SatelliteMap.tsx   # Client-only Leaflet satellite map
-├── globals.css            # ORCA visual system and responsive layout
-├── layout.tsx             # Metadata and application shell
-└── page.tsx               # Interactive marine command centre
-
-lib/
-├── data.ts                # Live adapters and demo-data orchestration
-├── demo-corpus.ts         # Deterministic 300+ observation demo corpus
-├── noaa.ts                # Server-only NOAA/NCEI client
-├── openai.ts              # Optional server-only AI adapter
-└── types.ts               # Shared domain and API types
-
-public/
-├── manifest.webmanifest   # Installable web-app metadata
-└── manus-routes.json      # WebDev route manifest
-
-Dockerfile                 # Standalone Next.js production image
-.env.example               # Safe environment-variable template
-DEPLOYMENT.md              # Vercel and Manus deployment notes
-SECURITY_AUDIT_2026-10-02.md
+.
+├── public/
+│   └── favicon.png
+├── src/
+│   ├── components/
+│   │   ├── marine/
+│   │   │   ├── ConversationalAgentPanel.tsx
+│   │   │   ├── MarineMap.tsx
+│   │   │   ├── MapSettingsDialog.tsx
+│   │   │   ├── RouteOptimizerPanel.tsx
+│   │   │   ├── SOSDistressModal.tsx
+│   │   │   └── SafetyAndGeofencingDashboard.tsx
+│   │   └── ui/                 # Reusable interface components
+│   ├── contexts/               # Application context providers
+│   ├── hooks/                  # Reusable React hooks
+│   ├── pages/
+│   │   └── MarinePlatformPage.tsx
+│   ├── services/
+│   │   ├── agentEngine.ts      # Agent orchestration and trace data
+│   │   ├── languageService.ts   # Language and advisory support
+│   │   └── marineData.ts        # Marine demo data and calculations
+│   ├── types/                  # Marine and application types
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── routes.tsx
+├── docs/
+│   ├── DESIGN.md
+│   └── prd.md
+├── index.html
+├── package.json
+├── tailwind.config.js
+├── tsconfig*.json
+├── vite.config.ts
+└── README.md
 ```
+
+## Requirements
+
+- Node.js 20 or later
+- npm 10 or later
+- Internet access for external map tiles and web fonts
 
 ## Run locally
 
-### Requirements
-
-- Node.js 22 or later
-- pnpm 11 or later
-- Internet access for NASA GIBS map tiles
-
-### Setup
+Install dependencies:
 
 ```bash
-git clone <your-repository-url>
-cd orcaai
-pnpm install
-cp .env.example .env.local
+npm install
 ```
 
-For a reliable SIH demo, keep this in `.env.local`:
-
-```env
-ORCA_DATA_MODE=demo
-```
-
-Start the development server:
+Start the Vite development server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open the local URL printed by Vite, normally:
 
-## Validate the project
+```text
+http://localhost:5173
+```
 
-Run the standard checks before a demo or deployment:
+Create a production build:
 
 ```bash
-pnpm typecheck
-pnpm lint
-pnpm build
+npm run build
 ```
 
-Check the application health endpoint:
+Preview the production build locally:
 
 ```bash
-curl http://localhost:3000/api/health
+npm run preview
 ```
 
-Expected response:
+## Required package scripts
+
+The repository's current `package.json` contains placeholder `dev` and `build` commands. For a normal Vite workflow, the scripts should be:
 
 ```json
 {
-  "ok": true,
-  "service": "orca-ocean-signals"
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "tsgo -p tsconfig.check.json; npx biome lint; .rules/check.sh;npx tailwindcss -i ./src/index.css -o /dev/null 2>&1 | grep -E '^(CssSyntaxError|Error):.*' || true;.rules/testBuild.sh"
+  }
 }
 ```
 
-## Environment variables
+Without this correction, Vercel will not run a Vite production build and will report that the `dist` directory is missing.
 
-Copy `.env.example` to `.env.local`. Keep all credentials server-side and never commit `.env.local`.
+## Vercel deployment
 
-| Variable | Required | Purpose |
-|---|---:|---|
-| `ORCA_DATA_MODE` | Demo: yes | Use `demo` for the presentation corpus; use `live` only after provider responses are verified. |
-| `INCOIS_ERDDAP_BASE_URL` | Optional | Official INCOIS ERDDAP endpoint or an approved server-side proxy. |
-| `MOSDAC_USERNAME` | Optional | Approved MOSDAC server-side access. |
-| `MOSDAC_PASSWORD` | Optional | Approved MOSDAC server-side access. |
-| `BHUVAN_WMS_BASE_URL` | Optional | Approved Bhuvan/NRSC map-service endpoint. |
-| `NOAA_NCEI_API_TOKEN` | Optional | Server-only NOAA/NCEI credential for approved products. |
-| `OPENAI_API_KEY` | Optional | Server-only AI copilot credential. |
-| `OPENAI_API_BASE` | Optional | OpenAI-compatible API base URL. |
-| `OPENAI_MODEL` | Optional | Model name, for example `gpt-4o-mini`. |
+Use these Vercel settings:
 
-The copilot uses ORCA's deterministic question-specific fallback when no AI key is configured.
+| Setting | Value |
+|---|---|
+| Framework Preset | Vite |
+| Root Directory | Repository root, containing `package.json` and `index.html` |
+| Install Command | `npm install` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Node.js Version | 20.x or 22.x |
 
-### Security rules for credentials
+After deployment, verify that the site loads and that the browser console has no fatal errors. The application is a client-side Vite app; it does not expose the Next.js API routes described in the older documentation.
 
-Never use `NEXT_PUBLIC_` for a private token. In particular, do not create:
+## Data and prototype boundaries
 
-```env
-NEXT_PUBLIC_OPENAI_API_KEY=...
-```
+The application is designed around the following marine-intelligence concepts:
 
-Never paste production credentials into source code, README files, screenshots, chat messages or Git commits. Configure protected values through the hosting provider's encrypted environment-variable interface.
+- Satellite and Earth Observation signals
+- Sea-surface temperature and fisheries indicators
+- Waves, swell, weather and cyclone conditions
+- International maritime boundaries and buffer zones
+- Vessel position, heading and safe-return vectors
+- Hazard-aware route planning
 
-## Data modes and provenance
+Before operational use, replace representative values with approved, authenticated provider integrations and add clear source timestamps, freshness indicators and provider attribution. The prototype must not be presented as a real-time safety service without validating the underlying data feeds.
 
-### Demo mode
+## Documentation
 
-Demo mode uses a deterministic corpus of 300+ synthetic marine observations shaped around public ocean-data schemas. It is intended for:
+- [`docs/prd.md`](docs/prd.md) — product requirements, target users, scenarios and acceptance criteria
+- [`docs/DESIGN.md`](docs/DESIGN.md) — visual system, typography, colors and interaction direction
 
-- SIH presentations
-- UI development
-- Offline demonstrations
-- Automated checks
-- Reproducible judging and review
+## Security and responsible use
 
-Demo values must not be represented as operational observations.
-
-### Live mode
-
-Live mode is designed for approved provider integrations. Before using it operationally:
-
-1. Confirm provider registration and redistribution permissions.
-2. Configure the server-side endpoint or credential.
-3. Verify a real response in the deployment runtime.
-4. Confirm source timestamp and freshness.
-5. Keep fallback and stale-data labels visible.
-6. Never disable TLS verification to force a provider request to work.
-
-See `SOURCES.md`, `REALTIME_DATA_API_PLAN.md`, `INCOIS_DATA_STEP_BY_STEP.md` and `LIVE_INTEGRATION_STATUS.md` for provider-specific notes.
-
-## API routes
-
-| Route | Method | Purpose |
-|---|---|---|
-| `/api/health` | `GET` | Deployment readiness check. |
-| `/api/ocean-data` | `GET` | Returns normalised marine observations and provenance. |
-| `/api/chat` | `POST` | Answers a validated marine question with evidence and agent trace. |
-| `/api/noaa/datasets` | `GET` | Checks optional NOAA/NCEI server-side configuration. |
-
-Example copilot request:
-
-```bash
-curl -X POST http://localhost:3000/api/chat \
-  -H 'content-type: application/json' \
-  -d '{"query":"Where is the strongest PFZ candidate today?"}'
-```
-
-## Deploy to Vercel
-
-1. Push this repository to GitHub, GitLab or Bitbucket.
-2. Open [Vercel](https://vercel.com) and select **Add New Project**.
-3. Import the repository.
-4. Keep the detected framework as **Next.js**.
-5. Use the default build settings.
-6. Add the required production variables, starting with:
-
-   ```env
-   ORCA_DATA_MODE=demo
-   ```
-
-7. Add optional provider or AI variables only when their access is approved.
-8. Deploy the project.
-9. Open the deployed URL and verify `/api/health`, `/api/ocean-data` and the map.
-10. Check that the interface still labels demo, stale and live data correctly.
-
-For detailed deployment notes, read `DEPLOYMENT.md` and `REBUILD_INSTRUCTIONS.md`.
-
-## Manus WebDev deployment
-
-This repository also contains the container contract required by the bound Manus WebDev project:
-
-- `Dockerfile` builds Next.js in standalone mode.
-- The application listens on the platform-provided port.
-- `/api/health` is the unauthenticated readiness path.
-- The project configuration declares `Dockerfile` and `/api/health` in its `deploy` domain.
-
-Do not publish a version until the source is committed and the required environment variables are configured through the secure hosting flow.
-
-## Security and production readiness
-
-The project includes checks and documentation for:
-
-- Input validation
-- Safe API errors
-- Server-only credentials
-- Rate limiting for copilot requests
-- No debug-log or secret leakage
-- Explicit demo/live/stale labelling
-- Safe upstream failure handling
-- Mobile and responsive layouts
-- Health checks and deployment readiness
-- No payment, webhook or database feature enabled by default
-
-Read `SECURITY_AUDIT_2026-10-02.md` and `SECURITY_CHECKLIST.md` before moving from prototype to production.
+- Do not place private API keys in frontend source code or variables exposed to the browser.
+- Treat map-provider keys as public or restricted according to the provider's policy.
+- Do not use simulated vessel positions or synthetic advisories for real navigation decisions.
+- Add authentication, authorization, server-side provider adapters, rate limiting and audit logging before connecting sensitive operational data.
+- Preserve provider attribution and comply with licensing and redistribution terms.
+- Keep emergency/SOS workflows clearly marked as prototype simulations until connected to an approved response organization.
 
 ## SIH 2026 positioning
 
-**Problem:** Marine and coastal decisions are fragmented across satellite imagery, ocean indicators, advisories and difficult-to-interpret data services.
+**Problem:** Marine stakeholders must interpret fragmented satellite, ocean, weather, fisheries and boundary information under time pressure.
 
-**Solution:** Sagar AI aka ORCA turns these signals into a visual, conversational and evidence-aware marine command centre.
+**Solution:** SagarAI / ORCA presents those signals in one multilingual geospatial command terminal and turns them into a concise, explainable advisory.
 
-**Innovation:** The system combines a global geospatial interface with typed data contracts, provenance, signal correlation and collaborative agent reasoning rather than returning an unexplained generic answer.
+**Innovation:** The prototype combines geospatial reasoning, marine safety rules, route constraints and a visible multi-agent trace instead of returning an unexplained generic answer.
 
-**Responsible AI principle:** ORCA distinguishes demo data from live data, preserves evidence, exposes freshness and keeps private credentials away from the browser.
-
-## Additional documentation
-
-- `REBUILD_INSTRUCTIONS.md` — feature tour, datasets, Vercel setup and SIH handoff
-- `SOURCES.md` — official data-source references and attribution notes
-- `DEPLOYMENT.md` — deployment architecture and publish contract
-- `NOAA_NCEI_INTEGRATION.md` — secure NOAA/NCEI integration
-- `DEMO_MOCKING_GUIDE.md` — safe synthetic-stream design
-- `SECURITY_CHECKLIST.md` — 15-point readiness checklist
-- `SECURITY_AUDIT_2026-10-02.md` — completed security audit
-- `SIH2026_Presentation_Script.md` — finals pitch script
-- `SIH_SUBMISSION_CHECKLIST_OCT5.md` — submission checklist
+**Impact:** It is designed to help fishers, coastal authorities, maritime safety teams and disaster-response operators make faster and more understandable decisions.
 
 ## License and usage
 
-This repository is a competition prototype. Review the license, attribution and redistribution terms of each external data provider before using ORCA with operational or commercial data.
-
----
-
-**Sagar AI aka ORCA**  
-*Marine ecosystem reasoning with collaborative agents.*
+This is a competition prototype. Review the license and attribution requirements of all external map, font, satellite and marine-data providers before public or operational use.
